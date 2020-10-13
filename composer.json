@@ -1,0 +1,31 @@
+{
+    "name": "alla1101/eloquentvisibility",
+    "description": "Package to Add visibility feature to each row of each model you choose",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alla Barkat",
+            "email": "a2la1101@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Alla\\Visibility\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Alla\\Visibility\\EloquentVisibilityServiceProvider"
+            ]
+        }
+    },
+    "require": {
+        "illuminate/support": "7.x",
+        "illuminate/console": "7.x",
+        "illuminate/filesystem": "7.x",
+        "illuminate/database": "7.x"
+    }
+}
