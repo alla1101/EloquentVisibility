@@ -1,0 +1,45 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateVisibilityStatusRelationsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('visibility_status_relations', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('eloquent_visibility_id');
+            $table->unsignedBigInteger('status_id');
+            $table->timestamps();
+
+            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
+            $table->foreign('eloquent_visibility_id')->references('id')->on('eloquent_visibilities')->onDelete('cascade');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('eloquent_visibilities', function (Blueprint $table) {
+            $table->dropForeign(
+                [
+                    'eloquent_visibilities_eloquent_visibility_id_foreign',
+                    'statuses_status_id_foreign'
+                ]
+            );
+        });
+
+        Schema::dropIfExists('eloquent_visibilities');
+    }
+}
