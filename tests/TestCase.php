@@ -1,5 +1,5 @@
 <?php
-/*
+
 namespace Alla\Visibility\Tests;
 
 use Alla\Visibility\EloquentVisibilityServiceProvider;
@@ -24,4 +24,3 @@ class TestCase extends \Orchestra\Testbench\TestCase
         // perform environment setup
     }
 }
-*/
