@@ -3,8 +3,9 @@
 namespace Alla\Visibility\Tests;
 
 use Alla\Visibility\EloquentVisibilityServiceProvider;
+use Orchestra\Testbench\TestCase as TC;
 
-class TestCase extends \Orchestra\Testbench\TestCase
+class TestCase extends TC
 {
     public function setUp(): void
     {
