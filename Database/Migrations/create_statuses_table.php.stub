@@ -13,11 +13,13 @@ class CreateStatusesTable extends Migration
      */
     public function up()
     {
-        Schema::create('statuses', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('str_key');
-            $table->timestamps();
-        });
+        if(!Schema::hasTable('statuses')){
+            Schema::create('statuses', function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->string('str_key');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

@@ -13,15 +13,17 @@ class CreateVisibilityStatusRelationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('visibility_status_relations', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('eloquent_visibility_id');
-            $table->unsignedBigInteger('status_id');
-            $table->timestamps();
+        if(!Schema::hasTable('visibility_status_relations')){
+            Schema::create('visibility_status_relations', function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->unsignedBigInteger('eloquent_visibility_id');
+                $table->unsignedBigInteger('status_id');
+                $table->timestamps();
 
-            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
-            $table->foreign('eloquent_visibility_id')->references('id')->on('eloquent_visibilities')->onDelete('cascade');
-        });
+                $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
+                $table->foreign('eloquent_visibility_id')->references('id')->on('eloquent_visibilities')->onDelete('cascade');
+            });
+        }
     }
 
     /**
@@ -31,15 +33,14 @@ class CreateVisibilityStatusRelationsTable extends Migration
      */
     public function down()
     {
-        Schema::table('eloquent_visibilities', function (Blueprint $table) {
-            $table->dropForeign(
-                [
-                    'eloquent_visibilities_eloquent_visibility_id_foreign',
-                    'statuses_status_id_foreign'
-                ]
-            );
-        });
+        if(Schema::hasTable('visibility_status_relations')){
+            Schema::table('visibility_status_relations', function (Blueprint $table) {
+                $table->dropForeign(['eloquent_visibility_id']);
+                $table->dropForeign(['status_id']);
+                
+            });
+        }
 
-        Schema::dropIfExists('eloquent_visibilities');
+        Schema::dropIfExists('visibility_status_relations');
     }
 }
